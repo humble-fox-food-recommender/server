@@ -1,6 +1,6 @@
 'use strict'
 
 const CurrencyController = require('./currency')
-// const UserController = require('./user')
+const ZomatoController = require('./currency')
 
-module.exports = { CurrencyController }
+module.exports = { CurrencyController, ZomatoController }

@@ -4,7 +4,7 @@
   "description": "Server side of food recommender",
   "main": "app.js",
   "scripts": {
-    "test": "NODE_ENV='development' nodemon app.js"
+    "dev": "NODE_ENV='development' nodemon app.js"
   },
   "repository": {
     "type": "git",
