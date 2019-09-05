@@ -1,31 +1,17 @@
-const Router = require('express').Router()
-const fs = require('fs');
-const path = require('path');
-const { currency } = require('../controllers')
-const basename = path.basename(__filename);
+'use strict'
 
-// * Get all routes from directory
-const output = {}
-fs.readdirSync(__dirname)
-    .filter(file => {
-        return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-    })
-    .map(file => {
-        file = file.replace('.js', '')
-        output[file] = require(('./' + file))
-    }
-    )
+const express = require('express')
+const currencyRouter = require('./currency')
+const router = express.Router()
 
-// * select routes to use
-const { } = output
 
-Router.get('/', (req, res) => {
+router.get('/', (req, res) => {
     res.status(200).json({
-        message: "connected"
+        message: 'Connected to Food Recommender App!'
     })
 })
 
-// * Routes
+// Routing
+router.use('/currency', currencyRouter)
 
-
-module.exports = Router
+module.exports = router
