@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use('/', routes)
 
-mongoose.connect("mongodb://localhost:27017/database-name", { useNewUrlParser: true })
+mongoose.connect("mongodb://localhost:27017/food-recommender", { useNewUrlParser: true })
 
 
 app.use(errorHandler)
