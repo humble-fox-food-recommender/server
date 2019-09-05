@@ -1,21 +1,38 @@
+'use strict'
+
 if (process.env.NODE_ENV === 'development') {
     require('dotenv').config()
 }
 
+// Modules
 const express = require('express')
+const router = require('./routes')
+const errorHandler = require('./middlewares/errorHandler')
+const mongoose = require('mongoose')
+const cors = require('cors')
+
 const app = express()
-const port = process.env.PORT || 3000
-const routes = require('./routes')
-const { errorHandler } = require('./middleware')
-const mongoose = require("mongoose")
+const PORT = process.env.PORT || 3000
 
-app.use(express.urlencoded({ extended: false }))
+mongoose.connect('mongodb://localhost:27017/food-recommender', { useNewUrlParser: true, useFindAndModify: false })
+    .then(() => {
+        console.log('mongoose connected to MongoDB database')
+    }).catch((err) => {
+        console.error(err, 'mongoose could not connected to MongoDB database')
+    })
+
+// Initial middlewares
 app.use(express.json())
-app.use('/', routes)
+app.use(express.urlencoded({ extended: false }))
 
-mongoose.connect("mongodb://localhost:27017/food-recommender", { useNewUrlParser: true })
+// Load cors
+app.use(cors())
 
+// Load router module on the app.js
+app.use('/', router)
 
+// Error handler
 app.use(errorHandler)
 
-app.listen(port, () => console.log(`Listening on port ${port}`))
+// Start the server
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
