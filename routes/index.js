@@ -1,6 +1,7 @@
 const Router = require('express').Router()
 const fs = require('fs');
 const path = require('path');
+const { currency } = require('../controllers')
 const basename = path.basename(__filename);
 
 // * Get all routes from directory
@@ -25,7 +26,6 @@ Router.get('/', (req, res) => {
 })
 
 // * Routes
-
 
 
 module.exports = Router
