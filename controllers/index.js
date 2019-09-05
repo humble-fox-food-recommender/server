@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { CurrencyController } = require('./currency')
 const basename = path.basename(__filename);
 const output = {}
 
