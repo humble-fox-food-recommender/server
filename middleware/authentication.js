@@ -1,4 +1,4 @@
-'use strict'
+
 
 const { verifyToken } = require('../helpers/jwt')
 

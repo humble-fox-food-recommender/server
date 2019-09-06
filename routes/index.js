@@ -4,8 +4,9 @@ const express = require('express')
 const currencyRouter = require('./currency')
 const zomatoRouter = require('./zomato')
 const userRouter = require('./user')
-const router = express.Router()
+const { authentication } = require('../middleware/authentication')
 
+const router = express.Router()
 
 router.get('/', (req, res) => {
     res.status(200).json({
@@ -14,8 +15,10 @@ router.get('/', (req, res) => {
 })
 
 // Routing
+router.use('/users', userRouter)
+
+router.use(authentication)
 router.use('/currency', currencyRouter)
 router.use('/zomato', zomatoRouter)
-router.use('/users', userRouter)
 
 module.exports = router
