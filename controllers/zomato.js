@@ -3,7 +3,6 @@
 const axios = require('axios')
 class ZomatoController {
     static search(req, res, next) {
-        console.log("masuk")
         console.log(req.params.parameter + req.params.page)
         let pagestart = 0
         if (req.params.page > 0) {
@@ -23,9 +22,10 @@ class ZomatoController {
     }
 
     static getDetail(req, res, next) {
+        console.log('masuk detail');
         const { id } = req.params
         const startLoc = `hacktiv8`
-        let location
+        let result = {}
 
         axios({
             url: `https://developers.zomato.com/api/v2.1/restaurant?res_id=${id}`,
@@ -36,17 +36,20 @@ class ZomatoController {
         })
             .then(({ data }) => {
                 // res.status(200).json(data.location)
-                location = data.location
-
+                result.name = data.name
+                result.price = data.average_cost_for_two
+                result.address = data.location
+                // res.json(result);
                 return axios({
-                    url: `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${startLoc}&destinations=${location.address}&key=${process.env.GMAPS_KEY}`,
+                    url: `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${startLoc}&destinations=${result.address.address}&key=${process.env.GMAPS_KEY}`,
                     method: `GET`
                 })
             })
             .then(({ data }) => {
-                location.distance = data.rows[0].elements[0].distance.text;
-                location.duration = data.rows[0].elements[0].duration.text
-                res.status(200).json(location)
+                result.distance = data.rows[0].elements[0].distance.text;
+                result.duration = data.rows[0].elements[0].duration.text
+                // console.log(result);
+                res.status(200).json(result)
             })
             .catch(err => {
                 console.log(err)
