@@ -12,7 +12,7 @@ class ZomatoController {
             url: `https://developers.zomato.com/api/v2.1/restaurant?res_id=${id}`,
             method: `GET`,
             headers: {
-                "user-key": "b49209f030dfc551b74e884ec6c47a85"
+                "user-key": process.env.ZOMATO_KEY
             }
         })
             .then(({ data }) => {
@@ -20,7 +20,7 @@ class ZomatoController {
                 location = data.location
 
                 return axios({
-                    url: `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${startLoc}&destinations=${location.address}&key=AIzaSyAdv8835rnAxHq2hwdSMLAS1Dt7Mjk2rAo`,
+                    url: `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${startLoc}&destinations=${location.address}&key=${process.env.GMAPS_KEY}`,
                     method: `GET`
                 })
             })
