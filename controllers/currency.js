@@ -31,7 +31,6 @@ class CurrencyController {
         let foodPrice = price
         const priceInUSD = Number(foodPrice / rates.data.rates.IDR) // Rupiah ke USD
         let convertedPrice = (priceInUSD * rates.data.rates[currency]).toFixed(2)  // USD ke mata uang yg dipilih ex.JPY
-        console.log(convertedPrice)
         res.status(200).json(convertedPrice)
       }).catch(next)
   }

@@ -3,7 +3,6 @@
 const axios = require('axios')
 class ZomatoController {
     static search(req, res, next) {
-        console.log(req.params.parameter + req.params.page)
         let pagestart = 0
         if (req.params.page > 0) {
             pagestart = req.params.page * 20
@@ -22,7 +21,6 @@ class ZomatoController {
     }
 
     static getDetail(req, res, next) {
-        console.log('masuk detail');
         const { id } = req.params
         const startLoc = `hacktiv8`
         let result = {}

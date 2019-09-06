@@ -7,8 +7,6 @@ const User = require('../models/user')
 
 class UserController {
   static signInGoogle(req, res, next) {
-    console.log('============ Masuk ============')
-
     let payload = null
     const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
     client.verifyIdToken({
@@ -32,11 +30,11 @@ class UserController {
       })
       .then(user => {
         const appToken = generateToken({ _id: user.id, email: user.email })
-        console.log(appToken)
         res.status(201).json(appToken)
       })
       .catch((err) => {
         console.log(err)
+        next
       })
   }
 }
