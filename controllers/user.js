@@ -30,6 +30,7 @@ class UserController {
       })
       .then(user => {
         const appToken = generateToken({ _id: user.id, email: user.email })
+        console.log(appToken)
         res.status(201).json({ appToken })
       })
       .catch((err) => {

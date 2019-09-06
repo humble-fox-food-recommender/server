@@ -1,8 +1,25 @@
+'use strict'
+
 const mongoose = require('mongoose')
+const { hashPassword } = require('../helpers/bcryptjs')
 const Schema = mongoose.Schema
 
-const UserSchema = new Schema({
-
+let userSchema = new Schema({
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    require: true
+  }
 })
 
-module.exports = mongoose.model("User", UserSchema)
+userSchema.pre('save', function (next) {
+  this.password = hashPassword(this.password)
+  next()
+})
+
+const User = mongoose.model('User', userSchema)
+
+module.exports = User
