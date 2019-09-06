@@ -1,7 +1,7 @@
 module.exports = (err, req, res, next) => {
     console.log(err)
-    let status
-    let message
+    let status = null
+    let message = null
     if (err.name === 'ValidationError') {
         status = 400
         let arr = []
